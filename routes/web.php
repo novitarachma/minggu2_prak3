@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Praktikum3Controller;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SaranaController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CommentController;
+Use Illuminate\Support\Facades\View;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,14 +19,24 @@ use App\Http\Controllers\Praktikum3Controller;
 |
 */
 
-Route::get('/', [Praktikum3Controller::class,'index']);
-Route::get('/home', [Praktikum3Controller::class,'home']);
-Route::prefix('category')->group (function() {
-    Route::get('/prodi/{macam}', [Praktikum3Controller::class,'prodi']);
+Route::get('/', [HomeController::class,'index']);
+
+Route::get('/home', [HomeController::class,'home']);
+
+Route::prefix('prodi')->group (function() {
+    Route::get('/manajemen-informatika', [ProdiController::class,'prodiMI']);
+    Route::get('/teknik-informatika', [ProdiController::class,'prodiTI']);
 });
-Route::get('/news/{id}', [Praktikum3Controller::class,'news']);
-Route::prefix('category')->group (function() {
-    Route::get('/sarana/{ruangan}', [Praktikum3Controller::class,'sarana']);
+
+Route::get('/news/{id}', [NewsController::class,'news']);
+
+Route::prefix('sarana')->group (function() {
+    Route::get('/perkantoran', [SaranaController::class,'sarana1']);
+    Route::get('/laboratorium', [SaranaController::class,'sarana2']);
+    Route::get('/kelas', [SaranaController::class,'sarana3']);
+    Route::get('/lainnya', [SaranaController::class,'sarana4']);
 });
-Route::get('/about', [Praktikum3Controller::class,'about']);
-Route::get('/comment/{nama}/{pesan}', [Praktikum3Controller::class,'comment']);
+
+Route::get('/about', [AboutController::class,'about']);
+
+Route::get('/comment/{nama}/{pesan}', [CommentController::class,'comment']);
